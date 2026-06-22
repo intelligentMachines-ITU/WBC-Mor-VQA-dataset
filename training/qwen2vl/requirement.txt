@@ -1,0 +1,6 @@
+pip install torch torchvision torchaudio
+pip install transformers
+pip install peft
+pip install accelerate
+pip install bitsandbytes
+pip install pandas pillow tqdm
