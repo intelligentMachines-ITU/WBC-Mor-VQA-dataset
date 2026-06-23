@@ -1,4 +1,4 @@
-# Qwen2-VL Fine-Tuning for WBCMor-VQA
+# Multilingual Hematology Visual Question Answering Dataset
 
 ### Authors
 
@@ -32,8 +32,8 @@ We recommend the use of a Linux machine equipped with CUDA-compatible GPUs. The 
 Clone repository:
 
 ```bash
-git clone <repository_link>
-cd <repository_name>
+git clone (https://github.com/intelligentMachines-ITU/WBC-Mor-VQA-dataset)
+cd WBC-Mor-VQA-dataset
 ```
 
 Create environment:
@@ -54,35 +54,25 @@ Install PyTorch according to your CUDA version.
 ---
 
 ## Dataset
-
-The WBCMor-VQA dataset can be downloaded from:
-
-📂 https://figshare.com/articles/dataset/WBC-Mor-VQA_Multilingual_Hematology_Visual_Question_Answering_dataset/32727159
-
 The dataset was developed using morphology annotations derived from:
 
 * LeukemiaAttri (MICCAI 2024)
 * WBCAtt-VQA (Uni-Hema, CVPR 2026)
+* 
+The WBCMor-VQA dataset can be downloaded from:
 
-Update dataset paths in:
+📂 https://figshare.com/articles/dataset/WBC-Mor-VQA_Multilingual_Hematology_Visual_Question_Answering_dataset/32727159
 
-```bash
-00_config.py
-```
-
-before training.
-
----
 
 ## Training
-
+### Step 01
 Before training, update the dataset paths and training parameters in:
 
 ```bash
 00_config.py
 ```
 
-Start training:
+### Step 02 Start training:
 
 ```bash
 python 01_train.py
@@ -98,16 +88,42 @@ Evaluate the trained model:
 python 02_test.py
 ```
 
-Generate predictions:
-
-```bash
-python test.py
-```
-
 ---
 
 ## Citation
-### WBCAtt-VQA
+
+If you use WBCMor-VQA in your research, please also consider citing the source datasets used in its construction.
+
+**Citation information for WBCMor-VQA will be added upon acceptance/publication of the associated paper.**
+
+### WBCAtt
+
+```bibtex
+@article{tsutsui2023wbcatt,
+  title={Wbcatt: A White Blood Cell Dataset Annotated with Detailed Morphological Attributes},
+  author={Tsutsui, Satoshi and Pang, Winnie and Wen, Bihan},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
+  pages={50796--50824},
+  year={2023}
+}
+```
+
+### LeukemiaAttri
+
+```bibtex
+@inproceedings{rehman2024leukemiaattri,
+  title={A Large-Scale Multi Domain Leukemia Dataset for the White Blood Cells Detection with Morphological Attributes for Explainability},
+  author={Rehman, Abdul and Meraj, Talha and Minhas, Aiman Mahmood and Imran, Ayisha and Ali, Mohsen and Sultani, Waqas},
+  booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
+  pages={553--563},
+  year={2024},
+  organization={Springer}
+}
+```
+
+
+### UniHema
 
 ```bibtex
 @inproceedings{rehman2026uni,
