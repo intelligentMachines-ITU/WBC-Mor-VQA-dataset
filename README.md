@@ -8,9 +8,14 @@ Hajra Malik, Hafiza Tooba Aftab, Abdul Rehman, Mohsen Ali, Waqas Sultani
 
 📂 Dataset: [WBCMor-VQA on Figshare](https://figshare.com/articles/dataset/WBC-Mor-VQA_Multilingual_Hematology_Visual_Question_Answering_dataset/32727159)
 
-### Model Weights
+## Model Weights
 
-🤗 Fine-tuned Weights: Coming Soon
+🤗 Model Weights: [ Model Weights on Figshare](https://figshare.com/articles/dataset/WBC-Mor-VQA_Multilingual_Hematology_Visual_Question_Answering_dataset/32727159)
+
+Available checkpoints:
+
+- Bilingual_Weights
+- Only_English_Weights
 
 ---
 
