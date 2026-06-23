@@ -1,355 +1,117 @@
-# WBCMor-VQA Training and Fine-Tuning Guide
+# Qwen2-VL Fine-Tuning for WBCMor-VQA
 
-## Overview
+### Authors
 
-This repository provides the resources required to train, fine-tune, and evaluate vision-language models on the WBCMor-VQA dataset.
+Hajra Malik, Hafiza Tooba Aftab, Abdul Rehman, Mohsen Ali, Waqas Sultani
 
-The guide covers:
+### Dataset
 
-* Environment setup
-* CUDA installation
-* PyTorch installation
-* Dataset preparation
-* Fine-tuning
-* Inference
-* Evaluation
-* Citation
+📂 Dataset: [WBCMor-VQA on Figshare](https://figshare.com/articles/dataset/WBC-Mor-VQA_Multilingual_Hematology_Visual_Question_Answering_dataset/32727159)
+
+### Model Weights
+
+🤗 Fine-tuned Weights: Coming Soon
 
 ---
 
-# System Requirements
+## Abstract
 
-## Recommended Hardware
-
-### Minimum
-
-* NVIDIA GPU with 12 GB VRAM
-* 32 GB RAM
-* 100 GB available storage
-
-### Recommended
-
-* NVIDIA GPU with 16 GB+ VRAM
-* 64 GB RAM
-* CUDA-compatible GPU
-* Linux or Windows
+WBCMor-VQA is a bilingual (English–Urdu) hematopathology visual question answering dataset containing morphology-aware question-answer pairs associated with microscopic images of normal and leukemic white blood cells. This repository provides code and model weights for fine-tuning Qwen2-VL on WBCMor-VQA. The provided implementation supports multilingual hematopathology visual question answering and enables training, evaluation, and inference on English and Urdu datasets.
 
 ---
 
-# Environment Setup
+## Installation
 
-## Step 1: Install Anaconda / Miniconda
+We recommend the use of a Linux machine equipped with CUDA-compatible GPUs. The execution environment can be installed through Conda.
 
-Download and install Anaconda or Miniconda.
-
-Verify installation:
+Clone repository:
 
 ```bash
-conda --version
+git clone <repository_link>
+cd <repository_name>
 ```
 
----
-
-## Step 2: Create Environment
-
-Create a new environment:
+Create environment:
 
 ```bash
-conda create -n wbcmor-vqa python=3.10 -y
+conda create --name wbcmor_vqa python=3.10
+conda activate wbcmor_vqa
 ```
 
-Activate environment:
-
-```bash
-conda activate wbcmor-vqa
-```
-
-Verify Python:
-
-```bash
-python --version
-```
-
----
-
-# CUDA Installation
-
-## Check GPU
-
-Verify that an NVIDIA GPU is available:
-
-```bash
-nvidia-smi
-```
-
-If the command runs successfully, your GPU drivers are installed correctly.
-
----
-
-## Install CUDA
-
-Download CUDA Toolkit from NVIDIA.
-
-Recommended version:
-
-```text
-CUDA 12.x
-```
-
-After installation verify:
-
-```bash
-nvcc --version
-```
-
----
-
-# PyTorch Installation
-
-Install PyTorch compatible with your CUDA version.
-
-Example:
-
-```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-```
-
-Verify installation:
-
-```bash
-python -c "import torch; print(torch.cuda.is_available())"
-```
-
-Expected output:
-
-```text
-True
-```
-
----
-
-# Install Required Packages
-
-Install all dependencies:
-
-```bash
-pip install transformers
-pip install accelerate
-pip install peft
-pip install bitsandbytes
-pip install datasets
-pip install evaluate
-pip install rouge-score
-pip install bert-score
-pip install nltk
-pip install pandas
-pip install tqdm
-pip install pillow
-pip install openpyxl
-pip install qwen-vl-utils
-```
-
-Alternatively:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-# Repository Structure
-
-```text
-WBCMor-VQA/
-
-├── data/
-│   ├── train/
-│   ├── test_english/
-│   └── test_urdu/
-│
-├── training/
-│   ├── qwen2vl/
-│   ├── internvl2.5/
-│   └── unihema/
-│
-├── images/
-│
-├── docs/
-│
-└── README.md
-```
+Install PyTorch according to your CUDA version.
 
 ---
 
-# Dataset Preparation
+## Dataset
 
-Place training annotations inside:
+The WBCMor-VQA dataset can be downloaded from:
 
-```text
-data/train/
-```
+📂 https://figshare.com/articles/dataset/WBC-Mor-VQA_Multilingual_Hematology_Visual_Question_Answering_dataset/32727159
 
-Place English test annotations inside:
+The dataset was developed using morphology annotations derived from:
 
-```text
-data/test_english/
-```
+* LeukemiaAttri (MICCAI 2024)
+* WBCAtt-VQA (Uni-Hema, CVPR 2026)
 
-Place Urdu test annotations inside:
-
-```text
-data/test_urdu/
-```
-
-Place image files inside:
-
-```text
-images/
-```
-
-Ensure that image paths referenced in the JSON files match the image directory structure.
-
----
-
-# Fine-Tuning
-
-## Qwen2-VL
-
-Navigate to:
+Update dataset paths in:
 
 ```bash
-cd training/qwen2vl
+00_config.py
 ```
 
-Run training:
+before training.
+
+---
+
+## Training
+
+Before training, update the dataset paths and training parameters in:
 
 ```bash
-python train.py
+00_config.py
+```
+
+Start training:
+
+```bash
+python 01_train.py
 ```
 
 ---
 
-## InternVL2.5
+## Testing
 
-Navigate to:
+Evaluate the trained model:
 
 ```bash
-cd training/internvl2.5
+python 02_test.py
 ```
 
-Run training:
+Generate predictions:
 
 ```bash
-python train.py
-```
-
----
-
-## Uni-Hema
-
-Navigate to:
-
-```bash
-cd training/unihema
-```
-
-Run training:
-
-```bash
-python train.py
+python test.py
 ```
 
 ---
 
-# Inference
-
-After training completes, generate predictions using:
-
-```bash
-python inference.py
-```
-
-Predictions will be saved to the output directory specified in the configuration file.
-
----
-
-# Configuration
-
-Training parameters can be modified in the configuration file provided with each model.
-
-Common parameters include:
-
-* Model checkpoint
-* Dataset path
-* Batch size
-* Learning rate
-* Number of epochs
-* Output directory
-
-Adjust these settings according to available hardware resources.
-
----
-
-# Troubleshooting
-
-## CUDA Not Detected
-
-Check:
-
-```bash
-nvidia-smi
-```
-
-and
-
-```bash
-python -c "import torch; print(torch.cuda.is_available())"
-```
-
----
-
-## Out of Memory Error
-
-Reduce:
-
-* Batch size
-* Image resolution
-* Gradient accumulation steps
-
----
-
-## Package Errors
-
-Update packages:
-
-```bash
-pip install --upgrade transformers accelerate peft
-```
-
----
-
-## License
-
-This repository and dataset are distributed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
-
-You are free to share, adapt, and redistribute the material for any purpose, provided appropriate credit is given to the original authors.
-
-For complete license details, please see the `LICENSE` file or visit:
-
-https://creativecommons.org/licenses/by/4.0/
-
-# Citation
-
-If you use WBCMor-VQA in your research, please cite:
+## Citation
+### WBCAtt-VQA
 
 ```bibtex
-@article{WBCMorVQA,
-  title={WBCMor-VQA: A Multilingual Hematopathology Visual Question Answering Dataset},
-  author={Authors},
+@inproceedings{rehman2026uni,
+  title={Uni-Hema: Unified Model for Digital Hematopathology},
+  author={Rehman, Abdul and Rasool, Iqra and Imran, Ayisha and Ali, Mohsen and Sultani, Waqas},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={37578--37589},
   year={2026}
 }
 ```
 
-Citation details will be updated upon publication.
 
----
