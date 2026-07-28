@@ -89,6 +89,15 @@ python 02_test.py
 ```
 
 ---
+## Feedback
+
+Although the dataset has undergone multiple stages of automatic generation and expert review, minor errors or inconsistencies may still remain. If you encounter any issues, such as annotation errors, translation inaccuracies, or formatting problems, please let us know by contacting the authors at:
+
+**msds24017@itu.edu.pk**
+
+We welcome community feedback and will incorporate verified corrections into future dataset releases whenever possible.
+
+---
 
 ## Citation
 
